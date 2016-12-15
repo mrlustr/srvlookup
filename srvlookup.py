@@ -71,7 +71,9 @@ def _query_srv_records(fqdn):
 
     """
     try:
-        return resolver.query(fqdn, 'SRV')
+        s = resolver.get_default_resolver()
+        s.nameservers = ['8.8.8.8']
+        return s.query(fqdn, 'SRV')
     except (resolver.NoAnswer,
             resolver.NoNameservers,
             resolver.NotAbsolute,
